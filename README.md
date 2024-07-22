@@ -1,10 +1,10 @@
 # Amazon Shopping List Scraper
 ** This project is based on (https://github.com/jtbnz/amazon_shopping_list/) by https://github.com/jtbnz **
 
-The project scrapes the Amazon Shopping List page and add the items to the Home Assistant Shopping List (todo list) every 3 minutes (this can be changed inthe file script.sh)
-* This is a one way sync only from Amazon List to Home Assistant and it only adds item to Home Assistant. It does not remove items from Home Assistant (even if removed from Amazon Shopping List)
+The project scrapes the Amazon Shopping List page and add the items to the Home Assistant Shopping List (todo list) every 3 minutes (this can be changed in the file script.sh)
+* This is a one-way sync only from Amazon List to Home Assistant and it only adds item to Home Assistant. It does not remove items from Home Assistant (even if removed from Amazon Shopping List)
 
-### Important - Do no skip this step<BR>
+### Important - Do not skip this step<BR>
 You will need the Amazon Email and Password that you use to Login, the OTP Secret Key and the Home Assistant Webhook URL.
 Please find the instructions on how to get the OTP Secret Key and the Home Assistant Webhook URL:
 
@@ -14,14 +14,14 @@ Please find the instructions on how to get the OTP Secret Key and the Home Assis
 2 - Go to Your Account => Login & Security and click on "Turn On" under 2-step verification<BR>
 3 - Select the Authentication App<BR>
 4 - Click on "Can't scan the barcode" and save the Key (13 sets of 4 characters each)<BR>
-5 - Remove the sapces of the Key (you will have something like this "ASDMASDFMSKDMKSFMKLASDDADABB6JNRNF7WFEHQW23H238R7843")<BR>
+5 - Remove the spaces of the Key (you will have something like this "ASDMASDFMSKDMKSFMKLASDDADABB6JNRNF7WFEHQW23H238R7843")<BR>
 
 ### If you already have 2-step verification enable:<BR>
 1 - Login to Amazon https://www.amazon.com/<BR>
 2 - Go to Your Account => Login & Security and click on "Manage" under 2-step verification<BR>
 3 - Under Authenticator App, click on Add New App<BR>
 4 - Click on "Can't scan the barcode" and save the Key (13 sets of 4 characters each)<BR>
-5 - Remove the sapces of the Key (you will have something like this "ASDMASDFMSKDMKSFMKLASDDADABB6JNRNF7WFEHQW23H238R7843")<BR>
+5 - Remove the spaces of the Key (you will have something like this "ASDMASDFMSKDMKSFMKLASDDADABB6JNRNF7WFEHQW23H238R7843")<BR>
 
 ### How to get the Home Assistant Webhook URL:<BR>
 1 - Go to your Home Assistant interface and go to Settings, Automations & Scenes, Automations<BR>
@@ -47,9 +47,23 @@ then:
 8.2 - Click on Change Mode
 8.3 - Select "Parallel" and click on Change Mode
 9 - Click on Save
+10 - The Automation will check if the item is already int he Shopping List and if so, it will not add again
+10.1 - Add the following to your HA configuration.yml
+```
+command_line:
+- sensor:
+    name: shoppinglist_api
+    command: >
+          echo "{\"list\":" $( cat .shopping_list.json) "}" 
+    value_template: > 
+        {{ value_json.list | length }}
+    json_attributes:
+        - list
+```
+10.2 - Save the file and restart Home Assistant
 
 Once you have the information above, you can use two methods:<BR>
-1 - Docker Image alredy built<BR>
+1 - Docker Image already built<BR>
 2 - Create your own Docker Image<BR>
 
 ## Docker Image Instructions:
@@ -62,7 +76,7 @@ Start Image:
 docker run -d \
   --name amazon-scraper \
   -e AMZ_LOGIN='<YOUR_AMAZON_EMAIL>' \ # your email address used to login at amazon in this format 'email@email.com' including single quotes.
-  -e AMZ_PASS='<YOUR_AMAZON_PASSORD>' \ # your passord used to login at amazon in this format 'mypassword1234' including single quotes.
+  -e AMZ_PASS='<YOUR_AMAZON_PASSORD>' \ # your password used to login at amazon in this format 'mypassword1234' including single quotes.
   -e AMZ_SECRET='<YOUR_OTP_APP_SECRET>' \ # your OTP App Secret in this format 'mypassword1234' including single quotes. More instructions below.
   -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # your Home Assistant Webhook URL including single quotes. More instructions below.
   thiagobruch:amazon-scrape-tb
@@ -80,14 +94,14 @@ docker build -t amazon-scrape-tb .
 docker run -d \
   --name amazon-scraper \
   -e AMZ_LOGIN='<YOUR_AMAZON_EMAIL>' \ # your email address used to login at amazon in this format 'email@email.com' including single quotes.
-  -e AMZ_PASS='<YOUR_AMAZON_PASSORD>' \ # your passord used to login at amazon in this format 'mypassword1234' including single quotes.
+  -e AMZ_PASS='<YOUR_AMAZON_PASSORD>' \ # your password used to login at amazon in this format 'mypassword1234' including single quotes.
   -e AMZ_SECRET='<YOUR_OTP_APP_SECRET>' \ # your OTP App Secret in this format 'mypassword1234' including single quotes. More instructions below.
   -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # your Home Assistant Webhook URL including single quotes. More instructions below.
   amazon-scrape-tb
 ```
 
 ## Extra - Clear Alexa Shopping List
-Because this is a one way sync (from Aamazon Shopping List to Home Assistant), I have an automation that clear Amazon Shopping list every night at midnight.
+Because this is a one way sync (from Amazon Shopping List to Home Assistant), I have an automation that clear Amazon Shopping list every night at midnight.
 Here is the Automation in YAML:
 
 ```
