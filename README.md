@@ -4,22 +4,9 @@
 The project scrapes the Amazon Shopping List page and add the items to the Home Assistant Shopping List (todo list).
 * This is a one way sync only from Amazon List to Home Assistant and it only adds item to Home Assistant. It does not remove items from Home Assistant (even if removed from Amazon Shopping List)
 
+You will need the Amazon Email and Password that you use to Login, the OTP Secret Key and the Home Assistant Webhook URL.
+Please find the instructions on how to get the OTP Secret Key and the Home Assistant Webhook URL:
 
-## Docker Instructions:
-Pull Image(around 800MB):
-```
-docker pull thiagobruch:amazon-scraper-tb
-```
-Start Image:
-```
-docker run -d \
-  --name amazon-scraper \
-  -e AMZ_LOGIN='<YOUR_AMAZON_EMAIL>' \ # your email address used to login at amazon in this format 'email@email.com' including single quotes.
-  -e AMZ_PASS='<YOUR_AMAZON_PASSORD>' \ # your passord used to login at amazon in this format 'mypassword1234' including single quotes.
-  -e AMZ_SECRET='<YOUR_OTP_APP_SECRET>' \ # your OTP App Secret in this format 'mypassword1234' including single quotes. More instructions below.
-  -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # your Home Assistant Webhook URL including single quotes. More instructions below.
-  thiagobruch:amazon-scrape-tb
-```
 ### How to get your OTP App Secret from Amazon <YOUR_OTP_APP_SECRET>:<BR>
 ### If you don't have 2-step verification enable:<BR>
 1 - Login to Amazon https://www.amazon.com/<BR>
@@ -55,4 +42,43 @@ then:
       name: "{{ trigger.json.name }}"
 ```
 8 - Click on Save
+
+Once you have the information above, you can use two methods:<BR>
+1 - Docker Image alredy built<BR>
+2 - Create your own Docker Image<BR>
+
+## Docker Image Instructions:
+Pull Image(around 800MB):
+```
+docker pull thiagobruch:amazon-scraper-tb
+```
+Start Image:
+```
+docker run -d \
+  --name amazon-scraper \
+  -e AMZ_LOGIN='<YOUR_AMAZON_EMAIL>' \ # your email address used to login at amazon in this format 'email@email.com' including single quotes.
+  -e AMZ_PASS='<YOUR_AMAZON_PASSORD>' \ # your passord used to login at amazon in this format 'mypassword1234' including single quotes.
+  -e AMZ_SECRET='<YOUR_OTP_APP_SECRET>' \ # your OTP App Secret in this format 'mypassword1234' including single quotes. More instructions below.
+  -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # your Home Assistant Webhook URL including single quotes. More instructions below.
+  thiagobruch:amazon-scrape-tb
+```
+
+## Create your Image Instructions:
+1 - Save all the file in a single directory
+2 - Run the following command:
+```
+docker build -t amazon-scrape-tb .
+```
+3 - It will take a while to create the image (around 850MB)
+4 - Once it is completed, run the docker run command with the variables to start the container:
+```
+docker run -d \
+  --name amazon-scraper \
+  -e AMZ_LOGIN='<YOUR_AMAZON_EMAIL>' \ # your email address used to login at amazon in this format 'email@email.com' including single quotes.
+  -e AMZ_PASS='<YOUR_AMAZON_PASSORD>' \ # your passord used to login at amazon in this format 'mypassword1234' including single quotes.
+  -e AMZ_SECRET='<YOUR_OTP_APP_SECRET>' \ # your OTP App Secret in this format 'mypassword1234' including single quotes. More instructions below.
+  -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # your Home Assistant Webhook URL including single quotes. More instructions below.
+  amazon-scrape-tb
+```
+
 
