@@ -55,7 +55,7 @@ Once you have the information above, you can use two methods:<BR>
 ## Docker Image Instructions:
 Pull Image(around 800MB):
 ```
-docker pull thiagobruch:amazon-scraper-tb
+docker pull thiagobruch/amazon-scrape-tb
 ```
 Start Image:
 ```
