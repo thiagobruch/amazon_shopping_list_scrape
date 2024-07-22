@@ -29,7 +29,7 @@ Please find the instructions on how to get the OTP Secret Key and the Home Assis
 3 - Click on Add Trigger and select Webhook<BR>
 4 - Click on the copy symbol on the right to get the URL and save it (example: http://homeassistant.local:8123/api/webhook/-hA_THs-Yr5dfasnnkjfsdfsa)<BR>
 5 - Click on Add Action and select If-Then<BR>
-6 - Switch the view to YAML (three dots on the right - Edit in YAML)<BR>
+6 - Switch the view to YAML (three dots on the right of the Action block - Edit in YAML)<BR>
 7 - Paste the following code:<BR>
 ```
 if:
@@ -42,7 +42,11 @@ then:
     data_template:
       name: "{{ trigger.json.name }}"
 ```
-8 - Click on Save
+8 - Change the mode from Single to Parallel: 
+8.1 - Click on the three dots on the top right of the screen
+8.2 - Click on Change Mode
+8.3 - Select "Parallel" and click on Change Mode
+9 - Click on Save
 
 Once you have the information above, you can use two methods:<BR>
 1 - Docker Image alredy built<BR>
@@ -81,5 +85,51 @@ docker run -d \
   -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # your Home Assistant Webhook URL including single quotes. More instructions below.
   amazon-scrape-tb
 ```
+
+## Extra - Clear Alexa Shopping List
+Because this is a one way sync (from Aamazon Shopping List to Home Assistant), I have an automation that clear Amazon Shopping list every night at midnight.
+Here is the Automation in YAML:
+
+```
+description: ""
+mode: single
+trigger:
+  - platform: time
+    at: "00:00:00"
+condition: []
+action:
+  - service: media_player.volume_set
+    data:
+      volume_level: 0.01
+    target:
+      entity_id: media_player.my_alexa
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
+  - service: media_player.play_media
+    data:
+      media_content_type: custom
+      media_content_id: "clear my shopping list"
+      enqueue: play
+    target:
+      entity_id: media_player.my_alexa
+    enabled: true
+  - delay:
+      hours: 0
+      minutes: 0
+      seconds: 3
+      milliseconds: 0
+    enabled: true
+  - service: media_player.play_media
+    data:
+      media_content_type: custom
+      media_content_id: "yes"
+      enqueue: play
+    target:
+      entity_id: media_player.my_alexa
+    enabled: true
+
 
 
