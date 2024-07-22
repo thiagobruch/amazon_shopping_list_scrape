@@ -42,13 +42,13 @@ then:
     data_template:
       name: "{{ trigger.json.name }}"
 ```
-8 - Change the mode from Single to Parallel: 
-8.1 - Click on the three dots on the top right of the screen
-8.2 - Click on Change Mode
-8.3 - Select "Parallel" and click on Change Mode
-9 - Click on Save
-10 - The Automation will check if the item is already int he Shopping List and if so, it will not add again
-10.1 - Add the following to your HA configuration.yml
+8 - Change the mode from Single to Parallel: <BR>
+8.1 - Click on the three dots on the top right of the screen<BR>
+8.2 - Click on Change Mode<BR>
+8.3 - Select "Parallel" and click on Change Mode<BR>
+9 - Click on Save<BR>
+10 - The Automation will check if the item is already int he Shopping List and if so, it will not add again<BR>
+10.1 - Add the following to your HA configuration.yml<BR>
 ```
 command_line:
 - sensor:
@@ -60,7 +60,7 @@ command_line:
     json_attributes:
         - list
 ```
-10.2 - Save the file and restart Home Assistant
+10.2 - Save the file and restart Home Assistant<BR>
 
 Once you have the information above, you can use two methods:<BR>
 1 - Docker Image already built<BR>
