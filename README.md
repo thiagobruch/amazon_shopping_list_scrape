@@ -8,10 +8,7 @@ Docker Instructions:
 Pull Image(around 800MB):
 docker pull thiagobruch:amazon-scraper-tb
 
-Start Image
-docker run -d -e AMZ_LOGIN=tbruch@gmail.com -e AMZ_PASS='zh584x*H$re$Mb' -e AMZ_SECRET='IEPFTCWDPC6SBQLBDMRFLAPZAJNZVE6IFCW6F77ZOF25LJO6VNKA' -e HA_WEBHOOK_URL='http://192.168.1.19:8123/api/webhook/-XG05J9oc6KpPq3RQ_k1m2GLs' --name amazon-scrape-tb amazon-scrape-tb
-
-
+Start Image:
 docker run -d \
   --name amazon-scraper \
   -e AMZ_LOGIN='<YOUR_AMAZON_EMAIL>' \ # replace by your email address used to login at amazon in this format 'email@email.com' including single quotes.
