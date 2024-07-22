@@ -4,11 +4,13 @@ The project scrapes the Amazon Shopping List page and add the items to the Home 
 * This is a one way sync only from Amazon List to Home Assistant and it only adds item to Home Assistant. It does not remove items from Home Assistant (even if removed from Amazon Shopping List)
 
 
-Docker Instructions:
+#Docker Instructions:
 Pull Image(around 800MB):
+```
 docker pull thiagobruch:amazon-scraper-tb
-
+```
 Start Image:
+```
 docker run -d \
   --name amazon-scraper \
   -e AMZ_LOGIN='<YOUR_AMAZON_EMAIL>' \ # replace by your email address used to login at amazon in this format 'email@email.com' including single quotes.
@@ -16,7 +18,7 @@ docker run -d \
   -e AMZ_SECRET='<YOUR_OTP_APP_SECRET>' \ # replace by your OTP App Secret in this format 'mypassword1234' including single quotes. More instructions below.
   -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # replace by your Home Assistant Webhook URL including single quotes. More instructions below.
   thiagobruch:amazon-scrape-tb
-
+```
 How to get your OTP App Secret from Amazon <YOUR_OTP_APP_SECRET>:
 If you don't have 2-step verification enable:
 1 - Login to Amazon https://www.amazon.com/
@@ -40,6 +42,7 @@ How to get the Home Assistant Webhook URL:
 5 - Click on Add Action and select If-Then
 6 - Switch the view to YAML (three dots on the right - Edit in YAML(
 7 - Paste the following code:
+```
 if:
   - condition: template
     value_template: >-
@@ -49,5 +52,6 @@ then:
   - service: shopping_list.add_item
     data_template:
       name: "{{ trigger.json.name }}"
+```
 8 - Click on Save
 
