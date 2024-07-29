@@ -84,12 +84,12 @@ docker run -d \
 ```
 
 ## Create your Image Instructions:
-1 - Save all the file in a single directory
+1 - Save all the file in a single directory<BR>
 2 - Run the following command:
 ```
 docker build -t amazon-scrape-tb .
 ```
-3 - It will take a while to create the image (around 850MB)
+3 - It will take a while to create the image (around 850MB)<BR>
 4 - Once it is completed, run the docker run command with the variables to start the container:
 ```
 docker run -d \
