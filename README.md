@@ -80,7 +80,7 @@ docker run -d \
   -e AMZ_PASS='<YOUR_AMAZON_PASSORD>' \ # your password used to login at amazon in this format 'mypassword1234' including single quotes.
   -e AMZ_SECRET='<YOUR_OTP_APP_SECRET>' \ # your OTP App Secret in this format 'mypassword1234' including single quotes. More instructions below.
   -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # your Home Assistant Webhook URL including single quotes. More instructions below.
-  thiagobruch:amazon-scrape-tb
+  thiagobruch/amazon-scrape-tb
 ```
 
 ## Create your Image Instructions:
