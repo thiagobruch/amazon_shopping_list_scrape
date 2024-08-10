@@ -1,6 +1,6 @@
 # Amazon Shopping List Scraper
 ** This project is based on (https://github.com/jtbnz/amazon_shopping_list/) by https://github.com/jtbnz **
-If you want to use as a Home Assistant Addon, use the link below:<br>
+<br><br>If you want to use as a Home Assistant Addon, use the link below:<br>
 https://github.com/thiagobruch/HA_Addons
 <br><br>
 
