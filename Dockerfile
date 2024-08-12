@@ -16,6 +16,10 @@ RUN sudo apt install curl gnupg -y && \
     sudo apt update && sudo apt install -y google-chrome-stable --no-install-recommends && \
     sudo rm -rf /var/lib/apt/lists/*
 
+# Install Firefox
+RUN sudo sh -c 'echo "deb http://deb.debian.org/debian/ unstable main contrib non-free" >> /etc/apt/sources.list.d/debian.list'
+RUN sudo apt update && sudo apt install -y firefox --no-install-recommends
+
 WORKDIR /usr/src/app
 #COPY package*.json scrapeAmazon.js script.sh updateHA.js ./
 COPY . .
