@@ -25,7 +25,9 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Install necessary npm packages
-RUN npm install puppeteer otpauth
+RUN npm install puppeteer otpauth dotenv
+RUN chmod a+x /usr/src/app/script.sh
 
-# Start script 
+
+# Start script
 CMD ["/usr/src/app/script.sh"]
