@@ -1,10 +1,10 @@
 #!/bin/bash
 # Define the commands to run
 COMMANDS=(
-    "cd /usr/src/app/"
+    "cd /app/"
     "rm -rf tmp/"
-    "/usr/bin/node /usr/src/app/scrapeAmazon.js"
-    "/usr/bin/node /usr/src/app/updateHA.js"
+    "/usr/bin/node /app/scrapeAmazon.js"
+    "/usr/bin/node /app/updateHA.js"
 )
 
 # Infinite loop
