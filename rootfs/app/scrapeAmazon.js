@@ -14,6 +14,9 @@ const amz_password = process.env.AMZ_PASS;
 const amz_signin_url = process.env.Amazon_Sign_in_URL;
 const amz_shoppinglist_url = process.env.Amazon_Shopping_List_Page;
 const log_level = process.env.debug_log;
+const deleteAfterDownload = process.env.delete_after_download !== undefined ? process.env.delete_after_download : 'false';
+
+
 
 // Create a new OTPAuth instance
 const totp = new OTPAuth.TOTP({
@@ -210,7 +213,7 @@ const result = parts.slice(0, 3).join('/');
   // Convert the array to JSON format
   let jsonFormattedItems = JSON.stringify(formattedItems, null, 2);
 
-  if(delete_after_download == "true") {
+  if(deleteAfterDownload == "true") {
       let delete_buttons = await page.$$eval(".item-actions-2 button", buttons =>
           buttons.forEach(button => button.click())
       );
