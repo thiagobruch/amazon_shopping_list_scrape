@@ -3,7 +3,6 @@ const puppeteer = require('puppeteer');
 const OTPAuth = require('otpauth');  // For handling OTP
 const fs = require('fs');
 
-// Replace this with your actual secret key you get from the amazon add MFA page - and remove the spaces
 const secret = process.env.AMZ_SECRET;
 const amz_login = process.env.AMZ_LOGIN;
 const amz_password = process.env.AMZ_PASS;
