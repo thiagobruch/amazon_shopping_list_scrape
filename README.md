@@ -80,6 +80,7 @@ docker run -d \
   -e Amazon_Sign_in_URL='<Amazon_SIGNIN_URL>' \ # The Sign-In Page for your amazon Account. More instructions on the address below
   -e Amazon_Shopping_List_Page='<Amazon_SHOPPING_LIST_URL>' \ # The Shopping list Page for your amazon Account. More instructions on the address below
   -e polling_interval='180' \ # The pooling interval in seconds. We recommend using 180 seconds or more.
+  -e delete_after_download=true \ # When set to true, the items will be delete from Amazon Shopping list once they are added to HA.
   thiagobruch/amazon-scrape-tb
 ```
 
@@ -101,6 +102,7 @@ docker run -d \
   -e Amazon_Sign_in_URL='<Amazon_SIGNIN_URL>' \ # The Sign-In Page for your amazon Account. More instructions on the address below
   -e Amazon_Shopping_List_Page='<Amazon_SHOPPING_LIST_URL>' \ # The Shopping list Page for your amazon Account. More instructions on the address below
   -e polling_interval='180' \ # The pooling interval in seconds. We recommend using 180 seconds or more.
+  -e delete_after_download=true \ # When set to true, the items will be delete from Amazon Shopping list once they are added to HA.
   amazon-scrape-tb
 ```
 
