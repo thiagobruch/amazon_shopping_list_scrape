@@ -1,5 +1,7 @@
 #!/bin/bash
 # Define the commands to run
+interval=$pooling_interval
+
 COMMANDS=(
     "cd /app/"
     "rm -rf tmp/"
@@ -15,5 +17,5 @@ while true; do
   done
 
   # Sleep for 3 minutes
-  sleep 180
+  sleep $interval
 done
