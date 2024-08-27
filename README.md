@@ -79,6 +79,7 @@ docker run -d \
   -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # your Home Assistant Webhook URL including single quotes. More instructions above.
   -e Amazon_Sign_in_URL='<Amazon_SIGNIN_URL>' \ # The Sign-In Page for your amazon Account. More instructions on the address below
   -e Amazon_Shopping_List_Page='<Amazon_SHOPPING_LIST_URL>' \ # The Shopping list Page for your amazon Account. More instructions on the address below
+  -e polling_interval='180' \ # The pooling interval in seconds. We recommend using 180 seconds or more.
   thiagobruch/amazon-scrape-tb
 ```
 
@@ -99,6 +100,7 @@ docker run -d \
   -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # your Home Assistant Webhook URL including single quotes. More instructions below.
   -e Amazon_Sign_in_URL='<Amazon_SIGNIN_URL>' \ # The Sign-In Page for your amazon Account. More instructions on the address below
   -e Amazon_Shopping_List_Page='<Amazon_SHOPPING_LIST_URL>' \ # The Shopping list Page for your amazon Account. More instructions on the address below
+  -e polling_interval='180' \ # The pooling interval in seconds. We recommend using 180 seconds or more.
   amazon-scrape-tb
 ```
 
