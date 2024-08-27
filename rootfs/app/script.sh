@@ -1,6 +1,7 @@
 #!/bin/bash
+
 # Define the commands to run
-interval=$pooling_interval
+# interval=$pooling_interval
 
 if [ "$debug_log" == "true" ]; then
         apk add mini_httpd
@@ -13,7 +14,7 @@ if [ "$debug_log" == "true" ]; then
         mkdir -p /run/openrc/exclusive
         touch /run/openrc/softlevel
         rc-service mini_httpd start
-
+fi
 COMMANDS=(
     "cd /app/"
     "rm -rf tmp/"
