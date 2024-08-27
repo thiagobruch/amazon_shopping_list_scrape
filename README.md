@@ -6,7 +6,6 @@ https://github.com/thiagobruch/HA_Addons
 
 The project scrapes the Amazon Shopping List page and add the items to the Home Assistant Shopping List (todo list) every 3 minutes (this can be changed in the file script.sh)
 * This is a one-way sync only from Amazon List to Home Assistant and it only adds item to Home Assistant. It does not remove items from Home Assistant (even if removed from Amazon Shopping List)
-* This project was crerated using the Amazon USA pages. If you are using amazon in a different location, change the scrapperAmazon.js URLs.
 
 ### Important - Do not skip this step<BR>
 You will need the Amazon Email and Password that you use to Login, the OTP Secret Key and the Home Assistant Webhook URL.
@@ -32,6 +31,7 @@ Please find the instructions on how to get the OTP Secret Key and the Home Assis
 2 - Click on "+ Create Automation" and select "Create new automation"<BR>
 3 - Click on Add Trigger and select Webhook<BR>
 4 - Click on the copy symbol on the right to get the URL and save it (example: http://homeassistant.local:8123/api/webhook/-hA_THs-Yr5dfasnnkjfsdfsa)<BR>
+You'll have to use the internal URL<br>
 5 - Switch the view to YAML (three dots on the top right - Edit in YAML)<BR>
 6 - Delete the line "action: []" and aste the following code:<BR>
 ```
@@ -75,8 +75,10 @@ docker run -d \
   --name amazon-scraper \
   -e AMZ_LOGIN='<YOUR_AMAZON_EMAIL>' \ # your email address used to login at amazon in this format 'email@email.com' including single quotes.
   -e AMZ_PASS='<YOUR_AMAZON_PASSORD>' \ # your password used to login at amazon in this format 'mypassword1234' including single quotes.
-  -e AMZ_SECRET='<YOUR_OTP_APP_SECRET>' \ # your OTP App Secret in this format 'mypassword1234' including single quotes. More instructions below.
-  -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # your Home Assistant Webhook URL including single quotes. More instructions below.
+  -e AMZ_SECRET='<YOUR_OTP_APP_SECRET>' \ # your OTP App Secret in this format 'mypassword1234' including single quotes. More instructions above.
+  -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # your Home Assistant Webhook URL including single quotes. More instructions above.
+  -e Amazon_Sign_in_URL='<Amazon_SIGNIN_URL>' \ # The Sign-In Page for your amazon Account. More instructions on the address below
+  -e Amazon_Shopping_List_Page='<Amazon_SHOPPING_LIST_URL>' \ # The Shopping list Page for your amazon Account. More instructions on the address below
   thiagobruch/amazon-scrape-tb
 ```
 
@@ -95,10 +97,31 @@ docker run -d \
   -e AMZ_PASS='<YOUR_AMAZON_PASSORD>' \ # your password used to login at amazon in this format 'mypassword1234' including single quotes.
   -e AMZ_SECRET='<YOUR_OTP_APP_SECRET>' \ # your OTP App Secret in this format 'mypassword1234' including single quotes. More instructions below.
   -e HA_WEBHOOK_URL='<HOME_ASSISTANT_WEBHOOK_URL' \ # your Home Assistant Webhook URL including single quotes. More instructions below.
+  -e Amazon_Sign_in_URL='<Amazon_SIGNIN_URL>' \ # The Sign-In Page for your amazon Account. More instructions on the address below
+  -e Amazon_Shopping_List_Page='<Amazon_SHOPPING_LIST_URL>' \ # The Shopping list Page for your amazon Account. More instructions on the address below
   amazon-scrape-tb
 ```
 
-## Extra - Clear Alexa Shopping List
+### * If you are not in the US and use Amazon in a different country, change the URLs below:
+* Amazon_Sign_in_URL: Amazon URL to sign. You'll need to find the URL for your country:
+```
+e.g. United States: 
+"https://www.amazon.com/ap/signin?openid.pape.max_auth_age=3600&openid.return_to=https%3A%2F%2Fwww.amazon.com%2Falexaquantum%2Fsp%2FalexaShoppingList%3Fref_%3Dlist_d_wl_ys_list_1&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=amzn_alexa_quantum_us&openid.mode=checkid_setup&language=en_US&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0"
+e.g. Italy:
+"https://www.amazon.it/ap/signin?openid.pape.max_auth_age=0&openid.return_to=https%3A%2F%2Fwww.amazon.it%2Fref%3Dnav_signin&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=itflex&openid.mode=checkid_setup&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0"
+e.g. Germany:
+"https://www.amazon.de/ap/signin?openid.pape.max_auth_age=3600&openid.return_to=https%3A%2F%2Fwww.amazon.de%2Falexaquantum%2Fsp%2FalexaShoppingList%3Fref_%3Dlist_d_wl_ys_list_1&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.assoc_handle=amzn_alexa_quantum_de&openid.mode=checkid_setup&language=de_DE&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select&openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0"
+```
+* Amazon_Shopping_List_Page:
+```
+e.g. United States:
+"https://www.amazon.com/alexaquantum/sp/alexaShoppingList?ref_=list_d_wl_ys_list_1"
+e.g. Italy:
+"https://www.amazon.it/alexaquantum/sp/alexaShoppingList?ref_=list_d_wl_ys_list_1"
+e.g. Germany:
+"https://www.amazon.de/alexaquantum/sp/alexaShoppingList?ref_=list_d_wl_ys_list_1"
+
+### * Extra - Clear Alexa Shopping List
 Because this is a one way sync (from Amazon Shopping List to Home Assistant), I have an automation that clear Amazon Shopping list every night at midnight.
 Here is the Automation in YAML:
 
