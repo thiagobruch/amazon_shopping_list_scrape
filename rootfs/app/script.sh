@@ -29,5 +29,5 @@ while true; do
   done
 
   # Sleep for 3 minutes
-  sleep $interval
+  sleep $pooling_interval
 done
