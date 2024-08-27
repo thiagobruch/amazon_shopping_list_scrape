@@ -126,7 +126,7 @@ e.g. Germany:
 ## * Enable Debug Mode
 Add the following to the "docker run" command:
 ```
--e log_level=true -p 8888:8888
+-e debug_log=true -p 8888:8888
 ```
 
 
