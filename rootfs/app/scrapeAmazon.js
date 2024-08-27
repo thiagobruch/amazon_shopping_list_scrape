@@ -3,6 +3,11 @@ const puppeteer = require('puppeteer');
 const OTPAuth = require('otpauth');  // For handling OTP
 const fs = require('fs');
 
+function getTimestamp() {
+    const now = new Date();
+    return now.toISOString().replace(/[:.]/g, '-');
+}
+
 const secret = process.env.AMZ_SECRET;
 const amz_login = process.env.AMZ_LOGIN;
 const amz_password = process.env.AMZ_PASS;
