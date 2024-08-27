@@ -122,8 +122,15 @@ e.g. Italy:
 "https://www.amazon.it/alexaquantum/sp/alexaShoppingList?ref_=list_d_wl_ys_list_1"
 e.g. Germany:
 "https://www.amazon.de/alexaquantum/sp/alexaShoppingList?ref_=list_d_wl_ys_list_1"
+```
+## * Enable Debug Mode
+Add the following to the "docker run" command:
+```
+-e log_level=true -p 8888:8888
+```
 
-### * Extra - Clear Alexa Shopping List
+
+## * Extra - Clear Alexa Shopping List
 Because this is a one way sync (from Amazon Shopping List to Home Assistant), I have an automation that clear Amazon Shopping list every night at midnight.
 Here is the Automation in YAML:
 
@@ -167,6 +174,3 @@ action:
     target:
       entity_id: media_player.my_alexa
     enabled: true
-
-
-
