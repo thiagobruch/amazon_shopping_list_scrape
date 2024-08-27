@@ -40,12 +40,24 @@ async function getOTP(secret) {
 
 (async () => {
     const browser = await puppeteer.launch({
-            headless: true,
+//            headless: true,
             defaultViewport: null,
-	    userDataDir: './tmp',
-            args: ['--no-sandbox', '--disable-setuid-sandbox', '--single-process'],
-            produt: 'firefox',
-//            executablePath: '/usr/bin/google-chrome',
+            userDataDir: './tmp',
+            args: [
+        '--headless',
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+//      '--single-process',
+        '--disable-extensions',
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+        '--disable-features=site-per-process'
+                ],
+//            args: ['--no-sandbox', '--disable-setuid-sandbox', '--single-process'],
+//            product: 'firefox',
+            executablePath: '/usr/bin/chromium',
+//            executablePath: '/usr/bin/firefox',
+//        dumpio: true,
           });
 
     const page = await browser.newPage();
