@@ -9,7 +9,7 @@ const amz_login = process.env.AMZ_LOGIN;
 const amz_password = process.env.AMZ_PASS;
 const amz_signin_url = process.env.Amazon_Sign_in_URL;
 const amz_shoppinglist_url = process.env.Amazon_Shopping_List_Page;
-const log_level = process.env.log_level;
+const log_level = process.env.debug_log;
 
 // Create a new OTPAuth instance
 const totp = new OTPAuth.TOTP({
