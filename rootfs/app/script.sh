@@ -2,7 +2,7 @@
 
 # Define the commands to run
 # interval=$pooling_interval
-
+echo $pooling_interval
 if [ "$debug_log" == "true" ]; then
         apk add mini_httpd
         mkdir /app/www
