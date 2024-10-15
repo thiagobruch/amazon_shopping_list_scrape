@@ -34,6 +34,8 @@ Please find the instructions on how to get the OTP Secret Key and the Home Assis
 You'll have to use the internal URL<br>
 5 - Switch the view to YAML (three dots on the top right - Edit in YAML)<BR>
 6 - Delete the line "action: []" and aste the following code:<BR>
+* If you only mark the items as completed and want them added again, remove the line " - completed"<BR>
+* Replace the entity "todo.shopping_list" with the entity in your environment.
 ```
 action:
   - action: todo.get_items
